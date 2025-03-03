@@ -1,5 +1,6 @@
 import praw
 import datetime
+import os
 
 # Initialize Reddit (Non-Authenticated)
 reddit = praw.Reddit(
@@ -8,6 +9,18 @@ reddit = praw.Reddit(
     user_agent="my_scraper",
 )
 
+# Generate sortable timestamp for filenames
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H%M")
+output_dir = "pop_output"
+
+# Create output directory if it does not exist
+os.makedirs(output_dir, exist_ok=True)
+
+base_filename = os.path.join(output_dir, f"reddit_top_posts_{timestamp}")
+posts_filename = f"{base_filename}.txt"
+titles_filename = f"{base_filename}_titles.txt"
+    
+
 subreddits = ["TrueOffMyChest","confessions","SurvivingInfidelity","tifu","OffMyChest"]
 
 for subreddit_name in subreddits:
@@ -15,7 +28,7 @@ for subreddit_name in subreddits:
     top_posts = subreddit.top(time_filter="week",limit=10)
 
 # Open a file to save the data
-with open("reddit_posts.txt", "w", encoding="utf-8") as f:
+with open(posts_filename, "w", encoding="utf-8") as f, open(titles_filename, "w", encoding="utf-8") as title_file:
     f.write("Reddit Scraper Output\n")
     f.write("=" * 80 + "\n")
 
@@ -25,6 +38,8 @@ with open("reddit_posts.txt", "w", encoding="utf-8") as f:
 
         f.write(f"Subreddit: {subreddit_name}\n")
         f.write("=" * 80 + "\n")
+        title_file.write(f"Subreddit: {subreddit_name}\n")
+        title_file.write("=" * 80 + "\n")
 
     # Fetch 10 posts from "top of the week" section
         for post in top_posts:
@@ -43,4 +58,10 @@ with open("reddit_posts.txt", "w", encoding="utf-8") as f:
             f.write(post_text + "\n")
             f.write("=" * 80 + "\n\n")
 
-print("✅ Scraped data saved to reddit_posts.txt")
+            title_file.write(f"-{post.title}\n")
+            #title_file.write("-" * 80 + "\n")
+        
+        f.write("\n")
+        title_file.write("\n")
+
+print(f"✅ Scraped data saved to {posts_filename} and {titles_filename}")
