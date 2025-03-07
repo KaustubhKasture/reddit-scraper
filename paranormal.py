@@ -4,9 +4,9 @@ import os
 
 # Initialize Reddit (Non-Authenticated)
 reddit = praw.Reddit(
-    client_id="IPCT_0TSAVi-4CoyZ6vRIA",
-    client_secret="W6_2ukA62FeOIlUuZ8wSXNQXnpKItw",
-    user_agent="my_scraper",
+    client_id="your_client_id",
+    client_secret="your_client_secret",
+    user_agent="name_of_app",
 )
 
 # Generate sortable timestamp for filenames
