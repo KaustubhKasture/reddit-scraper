@@ -30,6 +30,7 @@ For pop_scraper.py and paranormal_scraper.py, the scraped data is stored in two 
         - Number of comments
         - Post content
 2. Summary File (reddit_top_posts_date_titles.txt)
+    - Contains only the subreddit name and titles of ten scraped posts for all subreddits scraped
 
 ## Usage
 1. Create a Reddit API application on [Reddit's Developer Portal](https://www.reddit.com/prefs/apps).
