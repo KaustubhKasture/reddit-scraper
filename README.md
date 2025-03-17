@@ -37,7 +37,7 @@ For pop_scraper.py and paranormal_scraper.py, the scraped data is stored in two 
 3. Configure the authentication details in each Python file.
 4. Run the desired scraper script:
 ```bash
-python single_subreddit_scraper.py
+python test.py
 ```
 
 ## Example Output
